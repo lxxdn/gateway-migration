@@ -1,0 +1,7 @@
+---
+fulishe-legacy:
+  root: '/Users/julien/Documents/fulishe'
+
+gateway:
+  root: '/Users/julien/Documents/ark'
+  module_repo: 'ark'
