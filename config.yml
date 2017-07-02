@@ -3,5 +3,9 @@ fulishe-legacy:
   root: '/Users/julien/Documents/fulishe'
 
 gateway:
-  root: '/Users/julien/Documents/ark'
-  module_repo: 'ark'
+  root: '/Users/julien/Documents/gateway-migration/test/ark'
+  name: 'ark'
+  route_helper_map:
+    'ark_api_route': 'add_guest_route'
+    'ark_authenticated_api_route': 'add_authenticated_route'
+    'ark_permissioned_api_route': 'add_permissionned_route'
