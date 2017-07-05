@@ -10,11 +10,10 @@ def create_ast_collector_visitor_class(visitor_type, conditions=None):
     and matches all the conditions
     """
 
-    def general_visitor(self, node):
-        global conditions
-
-        if not conditions:
+    if not conditions:
             conditions = [lambda n: True]
+
+    def general_visitor(self, node):
         if reduce((lambda x, y: x and y), [cond(node) for cond in conditions]):
             self.nodes.append(node)
         ast.NodeVisitor.generic_visit(self, node)

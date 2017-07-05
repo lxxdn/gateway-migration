@@ -8,6 +8,7 @@ import ast
 from code_gen import SEGMENT_SEPERATOR
 import codegen
 import autopep8
+from context import current_ctx
 
 
 def gen_routes(legacy_controller_name, new_module_name):
@@ -88,6 +89,12 @@ def __convert_to_gateway_routes(nodes, ctlr_name, m_name):
     for node in nodes:
         route_name, url, method, endpoint, ctlr_action = __get_route_info_from_node(
             node)
+
+        # this data will be used later
+        route_methods = current_ctx.get('route_methods') or set()
+        route_methods.add(ctlr_action)
+        current_ctx.set('route_methods', route_methods)
+
         if route_name in route_helper_map.keys():
             n = ast.Call(func=ast.Name(id=route_helper_map[route_name], ctx=ast.Load()), args=[ast.Name(id=m_name, ctx=ast.Load()), ast.Str(s=url), ast.Attribute(value=ast.Attribute(value=ast.Name(id='views', ctx=ast.Load(
             )), attr=ctlr_name, ctx=ast.Load()), attr=ctlr_action, ctx=ast.Load())], keywords=[ast.keyword(arg='method', value=ast.Str(s=method)), ast.keyword(arg='endpoint', value=ast.Str(s=endpoint))], starargs=None, kwargs=None)
